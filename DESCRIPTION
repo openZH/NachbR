@@ -1,10 +1,10 @@
-Package: BauPub
-Title: What the Package Does (One Line, Title Case)
+Package: baupub
+Title: BauPub
 Version: 0.0.0.9000
 Authors@R: 
     person("Christoph", "Zust", , "datashop@statistik.zh.ch", role = c("aut", "cre"),
            comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: What the package does (one paragraph).
+Description: This toolkit provides the functionalities to download, process, spatialize, and visualize building permit data from the canton of Zurich (ZH)
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
