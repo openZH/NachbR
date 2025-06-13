@@ -100,7 +100,18 @@ download_xml_files <- function(days_of_data, path, params) {
 #' @inheritParams total_entries_check
 #' @export
 #'
-get_new_pub_url <- function(page_size = 100, url, params, df_bp = NULL) {
+get_new_pub_url <- function(page_size = 100, 
+                            url = "https://amtsblattportal.ch/api/v1/publications/xml?", 
+                            params = list(
+                              publicationStates = "PUBLISHED",
+                              rubrics = "BP-ZH",
+                              subrubrics = "BP-ZH01",
+                              publicationDate.start = "2025-06-11",
+                              publicationDate.end = as.character(Sys.Date()),
+                              cantons = "ZH",
+                              pageRequest.size = 100
+                            ), 
+                            df_bp = NULL) {
   
   # Check if there are more than 9999 entries for the current API call
   total_entries_check(url, params)
@@ -131,7 +142,7 @@ get_new_pub_url <- function(page_size = 100, url, params, df_bp = NULL) {
     current_page <- current_page + 1
   }
 
-  cat("\ndata retrieved from", current_page, "pages\n")
+  cat("\ndata retrieved from", current_page + 1, "pages\n")
   cat("possible new entries:", entries_fetched, "\n")
 
   df_all_url <- df_all_url |>

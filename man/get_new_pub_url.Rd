@@ -4,7 +4,14 @@
 \alias{get_new_pub_url}
 \title{Retrieving the url of all newly published Baupublikationen}
 \usage{
-get_new_pub_url(page_size = 100, url, params, df_bp)
+get_new_pub_url(
+  page_size = 100,
+  url = "https://amtsblattportal.ch/api/v1/publications/xml?",
+  params = list(publicationStates = "PUBLISHED", rubrics = "BP-ZH", subrubrics =
+    "BP-ZH01", publicationDate.start = "2025-06-11", publicationDate.end =
+    as.character(Sys.Date()), cantons = "ZH", pageRequest.size = 100),
+  df_bp = NULL
+)
 }
 \arguments{
 \item{page_size}{The number of entries per page through which it will be
