@@ -99,6 +99,7 @@ create_OGD_df <- function(days_of_data, base_file_path) {
   } else {
     ### Case 3: OGD-resource exists but there are NO new publications ----------
 
+    cat(paste0("actual new entries added to data frame: ",0, "\n"))
     message("The data is already up-to-date. Hence, the OGD-resource is returned.")
 
     return(df_bp)
