@@ -92,6 +92,7 @@ clean_df_bp <- function(df_bp) {
     dplyr::mutate(dplyr::across(
       tidyselect::where(is.character),
       ~ gsub("\n", " ", .))) |>
+    dplyr::mutate(last_updated = as.character(Sys.Date()))
     dplyr::distinct()
 
   return(df_bp)
@@ -154,7 +155,8 @@ get_columns_of_interest <- function(df_bp) {
     "districtCadastre_relation_cadastre",
     "districtCadastre_relation_cadastre_raw",
     "districtCadastre_relation_buildingZone",
-    "districtCadastre_relation_district",
+    "districtCadastre_relation_district"
+    "last_updated",
     "geometry"
   )
 
