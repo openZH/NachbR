@@ -35,7 +35,14 @@ create_OGD_df <- function(days_of_data, base_file_path) {
  
   if (httr2::resp_status(resp) == 200) {
 
-    df_bp <- utils::read.csv("https://www.web.statistik.zh.ch/ogd/daten/ressourcen/KTZH_00002982_00006183.csv")
+    # check if csv was correctly downloaded:
+    tryCatch({
+      utils::read.csv("https://www.web.statistik.zh.ch/ogd/daten/ressourcen/KTZH_00002982_00006183.csv")},
+      warning = function(w) {
+        stop("Please resolve the following warning: ", conditionMessage(w))
+      }
+    )
+    
     } else {
     df_bp <- NULL
   }
