@@ -4,13 +4,9 @@
 \alias{download_xml_files}
 \title{Download all available Baupublikationen content}
 \usage{
-download_xml_files(days_of_data, path, params)
+download_xml_files(path, params)
 }
 \arguments{
-\item{days_of_data}{Integer or Character. If a numeric value is provided, it
-specifies the number of days in the past from which to retrieve publications.
-If set to \code{"all"}, all available publications will be downloaded.}
-
 \item{path}{A path to a folder where new and already downloaded Baupublikatonen
 are stored}
 
@@ -43,6 +39,6 @@ in your "params", then it overwrites the "days_of_data" argument.
   
   path <- "YOUR_STORAGE_FOlDER/"
   
-  download_xml_files(days_of_data = "all", path, params)
+  download_xml_files(path, params)
 }
 }

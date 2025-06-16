@@ -1,9 +1,9 @@
 
 
-#' Download all available Baupublikationen content
+#' Download Baupublikationen xml-files
 #'
-#' Downloading all available xml-files consisting of the meta information and
-#' content of all Baupublikationen.
+#' Downloading available xml-files based on your input paramater consisting of 
+#' the meta information and content of all Baupublikationen.
 #'
 #' @inheritParams create_OGD_df
 #' @param path A path to a folder where new and already downloaded Baupublikatonen
@@ -11,8 +11,8 @@
 #' @inheritParams total_entries_check
 #' 
 #' @details
-#' Note that if you specify a `publicationDate.start` and `publicationDate.end`
-#' in your "params", then it overwrites the "days_of_data" argument.
+#' Note that you can specify  `publicationDate.start` and `publicationDate.end`
+#' in your "params" (also see example).
 #' 
 #' @export
 #' 
@@ -30,29 +30,18 @@
 #'   
 #'   path <- "YOUR_STORAGE_FOlDER/"
 #'   
-#'   download_xml_files(days_of_data = "all", path, params)
+#'   download_xml_files(path, params)
 #' }
-download_xml_files <- function(days_of_data, path, params) {
-  
-  # Define the Amtsblatt-URL and parameters
+download_xml_files <- function(path, params) {
+
+    # Define the Amtsblatt-URL and parameters
   url <- "https://amtsblattportal.ch/api/v1/publications/xml?"
   
   # Define page size
   page_size <- 100
   
-  # Handle date parameters
-  if (is.null(params$publicationDate.start) && days_of_data != "all") {
-    params$publicationDate.start <- as.character(Sys.Date() - days_of_data)
-  } else if (days_of_data == "all") {
-    params$publicationDate.start <- ""  # let the API default or include everything
-  }
-  
-  if (is.null(params$publicationDate.end)) {
-    params$publicationDate.end <- as.character(Sys.Date())
-  }
-  
   # Check if there are more than 9999 entries for the current API call
-  total_entries_check()
+  total_entries_check(url, params)
   
   # get all necessary urls
   new_url <- get_new_pub_url(page_size, url, params, df_bp = NULL)
