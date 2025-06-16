@@ -155,7 +155,7 @@ get_columns_of_interest <- function(df_bp) {
     "districtCadastre_relation_cadastre",
     "districtCadastre_relation_cadastre_raw",
     "districtCadastre_relation_buildingZone",
-    "districtCadastre_relation_district"
+    "districtCadastre_relation_district",
     "last_updated",
     "geometry"
   )
