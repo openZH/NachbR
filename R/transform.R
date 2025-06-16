@@ -92,8 +92,7 @@ clean_df_bp <- function(df_bp) {
     dplyr::mutate(dplyr::across(
       tidyselect::where(is.character),
       ~ gsub("\n", " ", .))) |>
-    dplyr::mutate(last_updated = as.character(Sys.Date())) |> 
-    dplyr::distinct()
+    dplyr::mutate(last_updated = as.character(Sys.Date()))
 
   return(df_bp)
 }
