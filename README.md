@@ -16,7 +16,7 @@ This R-based toolkit provides functionality to **download**, **process**, **spat
 ## Main Functions Overview
 ### Retrieving and Processing XML-files
 
-#### `download_xml_files(days_of_data, path, params)`
+#### `download_xml_files(path, params)`
 Downloads all available Baupublikationen as XML files from the official API based on the selected parameters.
 
 - `days_of_data`: Number of days to look back, or "all" for full history
