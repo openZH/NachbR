@@ -19,9 +19,11 @@ testthat::test_that("Cadastre numbers are cleaned correctly", {
 })
 
 
-testthat::test_that("blabla", {
+testthat::test_that("XML-file is parsed and a df is built correctly", {
   
-  test_data <- readRDS(testthat::test_path("fixtures/test_data.RDS"))
+  test_data <- readRDS(testthat::test_path("fixtures/test_data.RDS")) |> 
+    # remove last updated since it would not be identical over time
+    dplyr::select(-last_updated)
   
   file <- testthat::test_path("fixtures/test.xml")
   
@@ -32,8 +34,9 @@ testthat::test_that("blabla", {
     # adjust their names, unnest cadaster nr
     clean_df_bp() |>
     get_legal_entity_info() |>
-    get_columns_of_interest()
-  
-  
+    get_columns_of_interest() |> 
+    #remove last updated
+    dplyr::select(-last_updated)
+    
   testthat::expect_equal(df_clean, test_data)  
 })
