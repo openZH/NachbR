@@ -72,7 +72,14 @@ create_OGD_df <- function(days_of_data, base_file_path) {
   ## Get the URLs of the new publication URLs ----------------------------------
 
   # get all necessary urls
-  new_url <- get_new_pub_url(page_size, url, params, df_bp)
+  
+  new_url <- try_later_if_fail(fun = get_new_pub_url,
+                               args = list(page_size = page_size,
+                                           url = url,
+                                           params = params, 
+                                           df_bp = df_bp),
+                               max_tries = 2, 
+                               sleep_time = 3600)
 
   ## Get publications ----------------------------------------------------------
 
