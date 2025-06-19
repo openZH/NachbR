@@ -178,7 +178,6 @@ clean_cadaster <- function(df_bp) {
   
   # note that "gsub" and "sub" are chosen consciousely because sometimes you only
   # want to replace a pattern once
-  
   df <- df_bp |>
     ## cleaning cadaster-numbers:
     dplyr::mutate(
@@ -224,7 +223,7 @@ clean_cadaster <- function(df_bp) {
     # remove all "gebäude"-string and everything after until there is another comma
     dplyr::mutate(
       districtCadastre_relation_cadastre =
-        gsub("(?i)geb\\u00e4ude*", ",", districtCadastre_relation_cadastre)
+        gsub("\\s*[Gg]eb\u00e4ude\\w*", "", districtCadastre_relation_cadastre)
     ) |>
     # replace all "/" with ","
     dplyr::mutate(
