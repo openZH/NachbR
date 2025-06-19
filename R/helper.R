@@ -37,7 +37,6 @@
 #'}
 #' @export
 try_later_if_fail <- function(fun, args, max_tries, sleep_time) {
-  browser()
   max_tries
   tries <- 0
   
