@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BP-ZH01:publication xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:BP-ZH01="https://shab.ch/kabzh/BP-ZH01-export" xsi:schemaLocation="https://shab.ch/kabzh/BP-ZH01-export https://amtsblattportal.ch/api/v1/schemas/kabzh/1.23/BP-ZH01-export.xsd">
+  <meta>
+    <id>282ff37d-3216-4ea0-81ff-6ba3cbfd5a1c</id>
+    <rubric>BP-ZH</rubric>
+    <subRubric>BP-ZH01</subRubric>
+    <language>de</language>
+    <registrationOffice>
+      <id>fe7ebe8e-b4f0-11e8-98f3-0050569db5fb</id>
+      <displayName>Stadt Affoltern am Albis - Hochbau und Umwelt</displayName>
+      <street>Obere Bahnhofstrasse</street>
+      <streetNumber>7</streetNumber>
+      <swissZipCode>8910</swissZipCode>
+      <town>Affoltern am Albis</town>
+      <containsPostOfficeBox>true</containsPostOfficeBox>
+      <postOfficeBox>
+        <number>330</number>
+      </postOfficeBox>
+      <municipalityId>2</municipalityId>
+    </registrationOffice>
+    <publicationNumber>BP-ZH01-0000052580</publicationNumber>
+    <publicationState>PUBLISHED</publicationState>
+    <publicationDate>2025-04-11</publicationDate>
+    <expirationDate>2026-04-11</expirationDate>
+    <primaryTenantCode>kabzh</primaryTenantCode>
+    <legalRemedy>Die Pläne liegen während der Auflagefrist auf. Erfolgt die Ausschreibung in mehreren Publikationsorganen, so gilt das Datum der letzten Ausschreibung.&lt;br /&gt; Während der Planauflage können Baurechtsentscheide bei der Baubehörde eingefordert werden. Wer das Begehren nicht innert dieser Frist stellt, hat das Rekursrecht verwirkt. Für die Zustellung baurechtlicher Entscheide kann eine Kanzleigebühr erhoben werden. &lt;br /&gt;Publikation gemäss §§ 6 und 314 Planungs- und Baugesetz (PBG).</legalRemedy>
+    <cantons>ZH</cantons>
+    <title>
+      <de>Bauprojekt: , Affoltern am Albis</de>
+      <en>Bauprojekt:</en>
+      <it>Bauprojekt:</it>
+      <fr>Bauprojekt:</fr>
+    </title>
+  </meta>
+  <content>
+    <localization>
+      <municipalityId>
+        <key>2</key>
+        <term>
+          <de>Affoltern am Albis</de>
+        </term>
+      </municipalityId>
+    </localization>
+    <buildingContractor>
+      <legalEntity>
+        <selectType>company</selectType>
+        <multi>
+          <companies>
+            <noUID>false</noUID>
+            <company>
+              <name>Amt für Landschaft und Natur des Kantons Zürich</name>
+              <uid>CHE-187.656.060</uid>
+              <uidOrganisationId>187656060</uidOrganisationId>
+              <uidOrganisationIdCategorie>CHE</uidOrganisationIdCategorie>
+              <legalForm>0221</legalForm>
+              <address>
+                <street>Walcheplatz</street>
+                <houseNumber>1</houseNumber>
+                <swissZipCode>8001</swissZipCode>
+                <town>Zürich</town>
+              </address>
+            </company>
+          </companies>
+          <companies>
+            <noUID>false</noUID>
+            <company>
+              <name>blalba blabla 2</name>
+              <uid>CHE-187.656.060</uid>
+              <uidOrganisationId>187656060</uidOrganisationId>
+              <uidOrganisationIdCategorie>CHE</uidOrganisationIdCategorie>
+              <legalForm>0221</legalForm>
+              <address>
+                <street>Walcheplatz</street>
+                <houseNumber>1</houseNumber>
+                <swissZipCode>2000</swissZipCode>
+                <town>TEST</town>
+              </address>
+            </company>
+          </companies>		  
+        </multi>
+      </legalEntity>
+    </buildingContractor>
+    <delegation>
+      <selectType>yes</selectType>
+      <buildingContractor>
+        <legalEntity>
+          <selectType>company</selectType>
+          <multi>
+            <companies>
+              <noUID>false</noUID>
+              <company>
+                <name>Architekturbüro Gasser &amp; Partner</name>
+                <uid>CHE-415.590.883</uid>
+                <uidOrganisationId>415590883</uidOrganisationId>
+                <uidOrganisationIdCategorie>CHE</uidOrganisationIdCategorie>
+                <legalForm>0103</legalForm>
+                <address>
+                  <street>Lochacker</street>
+                  <houseNumber>495</houseNumber>
+                  <swissZipCode>8226</swissZipCode>
+                  <town>Schleitheim</town>
+                </address>
+              </company>
+            </companies>
+            <companies>
+              <noUID>false</noUID>
+              <company>
+                <name>Architekturbüro Gasser &amp; Partner</name>
+                <uid>CHE-415.590.883</uid>
+                <uidOrganisationId>415590883</uidOrganisationId>
+                <uidOrganisationIdCategorie>CHE</uidOrganisationIdCategorie>
+                <legalForm>0103</legalForm>
+                <address>
+                  <street>Lochacker</street>
+                  <houseNumber>495</houseNumber>
+                  <swissZipCode>1000</swissZipCode>
+                  <town>TEST</town>
+                </address>
+              </company>
+            </companies>			
+          </multi>
+        </legalEntity>
+      </buildingContractor>
+    </delegation>
+    <projectFramer>
+      <selectType>other</selectType>
+      <legalEntity>
+        <selectType>company</selectType>
+      </legalEntity>
+      <multi>
+        <companies>
+          <noUID>false</noUID>
+          <company>
+            <name>Wälter Willa, Ingenieure für Geomatik Planung Werke KlG</name>
+            <uid>CHE-107.886.860</uid>
+            <uidOrganisationId>107886860</uidOrganisationId>
+            <uidOrganisationIdCategorie>CHE</uidOrganisationIdCategorie>
+            <legalForm>0103</legalForm>
+            <address>
+              <street>Obstgartenstrasse</street>
+              <houseNumber>12</houseNumber>
+              <swissZipCode>8910</swissZipCode>
+              <town>Affoltern am Albis</town>
+            </address>
+          </company>
+        </companies>
+        <companies>
+          <noUID>false</noUID>
+          <company>
+            <name>BABU GmbH Büro für Altlasten, Boden und Umwelt</name>
+            <uid>CHE-108.480.331</uid>
+            <uidOrganisationId>108480331</uidOrganisationId>
+            <uidOrganisationIdCategorie>CHE</uidOrganisationIdCategorie>
+            <legalForm>0107</legalForm>
+            <address>
+              <street>Rautistrasse</street>
+              <houseNumber>13</houseNumber>
+              <swissZipCode>8047</swissZipCode>
+              <town>Zürich</town>
+            </address>
+          </company>
+        </companies>
+      </multi>
+    </projectFramer>
+    <projectDescription>Regeneration und ökologische Aufwertung Moorgebiet Bisliken und Munimatten</projectDescription>
+    <projectLocation>
+      <address>
+        <street>TEST</street>
+        <houseNumber>333</houseNumber>
+        <swissZipCode>8910</swissZipCode>
+        <town>Affoltern am Albis</town>
+      </address>
+    </projectLocation>
+    <districtCadastre>
+      <relation>
+        <cadastre>3344, 3380, 3383</cadastre>
+        <buildingZone>Landwirtschaftszone / Wald</buildingZone>
+      </relation>
+    </districtCadastre>
+    <locationCirculationOffice>Stadt Affoltern am Albis
+Hochbau und Umwelt
+Obere Bahnhofstrasse 7
+8910 Affoltern am Albis</locationCirculationOffice>
+    <additionalLegalRemedyStatic>Die Pläne liegen während der Auflagefrist auf. Erfolgt die Ausschreibung in mehreren Publikationsorganen, so gilt das Datum der letzten Ausschreibung.
+Während der Planauflage können Baurechtsentscheide bei der Baubehörde eingefordert werden. Wer das Begehren nicht innert dieser Frist stellt, hat das Rekursrecht verwirkt. Für die Zustellung baurechtlicher Entscheide kann eine Kanzleigebühr erhoben werden.
+Publikation gemäss §§ 6 und 314 Planungs- und Baugesetz (PGB).</additionalLegalRemedyStatic>
+    <daysAfterPublication>20</daysAfterPublication>
+    <entryDeadline>2025-05-01</entryDeadline>
+  </content>
+</BP-ZH01:publication>
