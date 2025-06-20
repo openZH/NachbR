@@ -43,7 +43,7 @@ Takes an XML-file and flattens its content by extracting its leaves and expandin
 #### `create_clean_df(url)`
 A wrapper function of `xml_to_df()`. Takes a list of XML URLs, retrieves the XML-files (without saving them) and converts them into a cleaned, structured data frame.
 
-- `url`: Vector of XML URLs
+- `url`: Vector of XML URLs (output of `get_new_pub_url()`)
 
 > **Note**:
 The cadaster numbers are cleaned in this process which are required for geo-referencing the involved parcels of a building project. It is important to mention that an error-free cleaning of the cadaster numbers cannot be guaranteed. Cadaster numbers are provided by the municipalities and have no standard format. Therefore, it is possible that even after cleaning some cadaster numbers (in combination with the BFS-Nr.) cannot be matched to a specific parcel.
