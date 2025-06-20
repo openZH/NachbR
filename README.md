@@ -1,6 +1,14 @@
 # Zurich "Baupublikationen" Toolkit
 
-This R-based toolkit provides functionality to **download**, **process**, **spatialize**, and **visualize** building permit data from the canton of Zurich (ZH). The toolkit interacts with official online resources like the [Amtsblattportal](https://amtsblattportal.ch/#!/home) and Zurich's [OGD (Open Government Data)](https://www.zh.ch/de/politik-staat/statistik-daten/datenkatalog.html#/).
+The Zurich "Baupublikationen" Toolkit is built to work with official building permit data from the canton of Zurich. These data reflect all construction projects for which a building application has been submitted—an obligatory step for any building activity in the canton. Since 2019, such applications have been published exclusively in digital form via the Amtsblatt portal.
+
+The source data is maintained by individual municipalities, which record and submit building applications directly to the [Amtsblattportal](https://amtsblattportal.ch/#!/home). There, the applications are made publicly accessible, typically for up to one year. This toolkit is designed to systematically **retrieve**, **process**, and **structure** these publications so they can be used for **spatial analysis**, **monitoring**, and **visualization**.
+
+It's important to note that a building application represents a legal notice—it does not guarantee that a project will be carried out as proposed. The toolkit does not track the outcome or execution status of a permit.
+
+**Important Links**
+- [API documentation of the Amtsblattportal](https://www.amtsblattportal.ch/docs/api/)
+- [data set with all building publications since autumn 2024](https://www.zh.ch/de/politik-staat/statistik-daten/datenkatalog.html#/) (updated on a daily basis)
 
 ## Installation
 
@@ -20,34 +28,37 @@ This R-based toolkit provides functionality to **download**, **process**, **spat
 ## Main Functions Overview
 ### Retrieving and Processing XML-files
 
-#### `download_xml_files(path, params)`
-Downloads all available Baupublikationen as XML files from the official API based on the selected parameters.
-
-- `path`: Folder path to store XML files
-- `params`: A named list of query parameters (e.g., publication date range, cantons)
-
 #### `get_new_pub_url(page_size, url, params, df_bp)`
 Generates a list of XML URLs for newly published permits by comparing against existing IDs.
 
 - `page_size`: Number of entries to fetch per request (default = 100)
 - `url`: API base URL
-- `params`: API parameters as a named list
+- `params`: A named list of query parameters (e.g., publication date range, cantons)
 - `df_bp`: Existing data frame from OGD distribution (optional)
-
-#### `xml_to_df(xml)`
-
-Takes an XML-file and flattens its content by extracting its leaves and expanding the data if there are, for example, multiple locations.
-
-- `xml`: XML-file
 
 #### `create_baupub_df(url)`
 A wrapper function of `xml_to_df()`. Takes a list of XML URLs, retrieves the XML-files (without saving them) and converts them into a cleaned, structured data frame.
 
 - `url`: Vector of XML URLs (output of `get_new_pub_url()`)
 
+##### `xml_to_df(xml)`
+
+⚙️ Core Function – Not user-facing, but central to the toolkit's architecture.
+
+Parses a single XML-file recursively, extracting and flattening all terminal (leaf) nodes into a structured format. This function is the backbone of the data transformation process used by create_baupub_df().
+
+xml: XML-file
+
 > **Note**:
 The cadaster numbers are cleaned in this process which are required for geo-referencing the involved parcels of a building project. It is important to mention that an error-free cleaning of the cadaster numbers cannot be guaranteed. Cadaster numbers are provided by the municipalities and have no standard format. Therefore, it is possible that even after cleaning some cadaster numbers (in combination with the BFS-Nr.) cannot be matched to a specific parcel.
 
+
+
+#### `download_xml_files(path, params)`
+Downloads all available Baupublikationen as XML files from the official API based on the selected parameters.
+
+- `path`: Folder path to store XML files
+- `params`: A named list of query parameters (e.g., publication date range, cantons)
 
 
 ### Add Spatial Information and Map Building Project
