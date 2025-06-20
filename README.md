@@ -47,7 +47,7 @@ A wrapper function of `xml_to_df()`. Takes a list of XML URLs, retrieves the XML
 
 Parses a single XML-file recursively, extracting and flattening all terminal (leaf) nodes into a structured format. This function is the backbone of the data transformation process used by create_baupub_df().
 
-`xml`: XML-file
+- `xml`: XML-file
 
 > **Note**:
 The cadaster numbers are cleaned in this process which are required for geo-referencing the involved parcels of a building project. It is important to mention that an error-free cleaning of the cadaster numbers cannot be guaranteed. Cadaster numbers are provided by the municipalities and have no standard format. Therefore, it is possible that even after cleaning some cadaster numbers (in combination with the BFS-Nr.) cannot be matched to a specific parcel.
