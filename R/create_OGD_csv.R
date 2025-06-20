@@ -39,7 +39,7 @@ create_OGD_df <- function(days_of_data, base_file_path) {
     tryCatch({
       df_bp <- utils::read.csv("https://www.web.statistik.zh.ch/ogd/daten/ressourcen/KTZH_00002982_00006183.csv")},
       warning = function(w) {
-        stop("Please resolve the following warning: ", conditionMessage(w))
+        cli::cli_abort("Please resolve the following warning: {conditionMessage(w)}")
       }
     )
     
@@ -87,7 +87,7 @@ create_OGD_df <- function(days_of_data, base_file_path) {
     ### Case 1: OGD-resource does not exist yet --------------------------------
 
     if (days_of_data != "all") {
-      warning("If you want to download all available publications, set 'days_of_data' to 'all'.")
+      cli::cli_warn("If you want to download all available publications, set 'days_of_data' to 'all'.")
     }
     
     dp_bp_new <- create_baupub_df(new_url) |> 

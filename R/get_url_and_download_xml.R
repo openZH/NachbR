@@ -279,8 +279,7 @@ total_entries_check <- function(url, params) {
   ))
   
   if (n_pub > 9999) {
-    stop("Select a different time frame such that you have less than 10'000
-         observations.")
+    cli::cli_abort("Select a different time frame such that you have less than 10'000 observations.")
   }
   
   return(n_pub)

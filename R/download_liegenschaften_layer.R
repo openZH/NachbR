@@ -140,7 +140,7 @@ get_giszh_api_download_url <- function(source_location, email_address) {
     print(status)
     
     if (grepl("FAILURE", status)) {
-      stop("The API has returned an error")
+      cli::cli_abort("The API has returned an error")
     }
   }
   
@@ -172,7 +172,7 @@ geo_info_check <- function(df_bp, df_bp_geo) {
   } else {
     lost_ids <- setdiff(unique(df_bp$id), unique(df_bp_geo$id))
     
-    stop(cat("The IDs were lost in the matching process: \n", lost_ids))
+    cli::cli_abort(cat("The IDs were lost in the matching process: \n", lost_ids))
   }
 }
 
