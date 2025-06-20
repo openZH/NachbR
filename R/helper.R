@@ -36,7 +36,7 @@
 #'                              sleep_time = 3600)
 #'}
 #' @export
-try_later_if_fail <- function(fun, args, max_tries, sleep_time) {
+try_later_if_fail <- function(fun, args, max_tries = 5, sleep_time) {
   max_tries
   tries <- 0
   
@@ -49,7 +49,7 @@ try_later_if_fail <- function(fun, args, max_tries, sleep_time) {
     }
     
     if (tries >= max_tries) {
-      stop("Function failed after 3 attempts.")
+      stop(paste0("Function failed after ", max_tries, " attempts."))
     }
     
     # Optional: wait before retrying
