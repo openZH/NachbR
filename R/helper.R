@@ -49,10 +49,11 @@ try_later_if_fail <- function(fun, args, max_tries = 5, sleep_time) {
     }
     
     if (tries >= max_tries) {
-      stop(paste0("Function failed after ", max_tries, " attempts."))
+      cli::cli_abort("Function failed after {max_tries} attempts.")
     }
     
     # Optional: wait before retrying
+    cli::cli_alert_info("{fun} failed. Retrying after {sleep_time} seconds...")
     Sys.sleep(sleep_time)
   }
 }
