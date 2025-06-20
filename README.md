@@ -40,7 +40,7 @@ Takes an XML-file and flattens its content by extracting its leaves and expandin
 
 - `xml`: XML-file
 
-#### `create_clean_df(url)`
+#### `create_baupub_df(url)`
 A wrapper function of `xml_to_df()`. Takes a list of XML URLs, retrieves the XML-files (without saving them) and converts them into a cleaned, structured data frame.
 
 - `url`: Vector of XML URLs (output of `get_new_pub_url()`)
@@ -100,7 +100,7 @@ url <- "https://amtsblattportal.ch/api/v1/publications/xml?"
 new_urls <-  get_new_pub_url(page_size = 100, url, params)
 
 # Step 3: convert multiple xml to a single data frame
-df_bp <- create_clean_df(new_urls)
+df_bp <- create_baupub_df(new_urls)
 
 # Step 4: Retrieve Liegenschaften-information
 sf_liegenschaften <- get_liegenschaften_layer("YOUR_DESTINATION",
