@@ -2,6 +2,10 @@
 
 This R-based toolkit provides functionality to **download**, **process**, **spatialize**, and **visualize** building permit data from the canton of Zurich (ZH). The toolkit interacts with official online resources like the [Amtsblattportal](https://amtsblattportal.ch/#!/home) and Zurich's [OGD (Open Government Data)](https://www.zh.ch/de/politik-staat/statistik-daten/datenkatalog.html#/).
 
+## Installation
+
+
+
 ## Features
 
 - 📥 Download the official building permit data
@@ -19,11 +23,8 @@ This R-based toolkit provides functionality to **download**, **process**, **spat
 #### `download_xml_files(path, params)`
 Downloads all available Baupublikationen as XML files from the official API based on the selected parameters.
 
-- `days_of_data`: Number of days to look back, or "all" for full history
 - `path`: Folder path to store XML files
 - `params`: A named list of query parameters (e.g., publication date range, cantons)
-
- Note: If publicationDate.start and publicationDate.end are given in params, they overwrite `days_of_data`.
 
 #### `get_new_pub_url(page_size, url, params, df_bp)`
 Generates a list of XML URLs for newly published permits by comparing against existing IDs.
@@ -35,7 +36,7 @@ Generates a list of XML URLs for newly published permits by comparing against ex
 
 #### `xml_to_df(xml)`
 
-Takes an xml-file and flattens its content by extracting its leaves and expanding the data if there are, for example, multiple locations.
+Takes an XML-file and flattens its content by extracting its leaves and expanding the data if there are, for example, multiple locations.
 
 - `xml`: XML-file
 
@@ -45,7 +46,7 @@ A wrapper function of `xml_to_df()`. Takes a list of XML URLs, retrieves the XML
 - `url`: Vector of XML URLs
 
 > **Note**:
-The cadaster numbers are cleaned in this process which are required geo-referencing the involved parcels of a building projoct. It is important to mention that an error-free cleaning of the cadaster numbers cannot be guaranteed. Cadaster numbers are provided by the municipalities and have no standard format. Therefore, it is possible that some cadaster numbers (in combination with the BFS-Nr.) cannot be matched to a specific parcel.
+The cadaster numbers are cleaned in this process which are required for geo-referencing the involved parcels of a building project. It is important to mention that an error-free cleaning of the cadaster numbers cannot be guaranteed. Cadaster numbers are provided by the municipalities and have no standard format. Therefore, it is possible that even after cleaning some cadaster numbers (in combination with the BFS-Nr.) cannot be matched to a specific parcel.
 
 
 
@@ -56,10 +57,13 @@ Returns the "Liegenschaften"-layer provided by the [Geo-Portal](https://geo.zh.c
 
 - `file_destination`: Character string indicating the local folder where the shapefile should be saved.
 - `email_address`: A valid email address required to authenticate the download request via the GISZH API.
-- `retrieval_day`: The weekday (e.g., "Monday") on which the file should be automatically re-downloaded if the script is run on that day.
+- `retrieval_day`: The weekday (e.g., "Monday") on which the file should be automatically re-downloaded if the script is run on that day (the layer is updated on a weekly basis).
+
+> **Note**:
+Executing `get_liegenschaften_layer()` can take up to two hours due to infrastructure constraints in the Geo-Portal.
 
 #### `add_spatial_information(df_bp, sf_liegenschaften)`
-Converts a cleaned permit data frame into a spatial layer (sf) and enriches with address, deadline, and URL information.
+Converts a cleaned permit data frame into a spatial layer (sf) and enriches it with address, deadline, and URL information.
 
 - `df_bp`: Cleaned building permit data
 - `sf_liegenschaften`: Official Zurich land parcel spatial layer
@@ -71,7 +75,7 @@ Converts a cleaned permit data frame into a spatial layer (sf) and enriches with
 Generates an interactive Leaflet map of permits.
 - `sf_bp_geo`: Spatial permit layer (output from add_spatial_information())
 
-🗺️ Outputs an interactive map with popups, styled polygons, and zoom-to-fit behavior.
+🗺️ Returns an interactive map with popups, styled polygons, and zoom-to-fit behavior.
 
 
 
@@ -131,11 +135,8 @@ Writes building permit data to a **GeoPackage (.gpkg)**. If the file exists, onl
 
 - `gpkg_file`: Destination path of the `.gpkg` file
 - `df_bp`: Data frame of permit data
-- `sf_liegenschaften`: Spatial dataset of land parcels for spatial joins. This spatial dataset can be (down)loaded using the function `get_liegenschaften_layer()` using the following arguments:
-    - `file_destination`: 
-    - `email_address`
-    - `retrieval_day`: The day when the spatial data should be downloaded as it is only updated once a week in the [Geo-Portal](https://geo.zh.ch/) of the canton of Zurich.
-
+- `sf_liegenschaften`: Spatial dataset of land parcels for spatial joins. This spatial dataset can be (down)loaded using the function `get_liegenschaften_layer()`.
+  
     Note that executing `get_liegenschaften_layer()` can take up to two hours due to infrastructure constraints in the Geo-Portal.
 
 ### `create_map(sf_bp_geo)`
@@ -171,7 +172,7 @@ create_gpkg("baupub.gpkg", df_bp, sf_liegenschaften)
 create_map(sf_bp)
 ```
 
-## Installation
+
 
 
 
