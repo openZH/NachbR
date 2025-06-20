@@ -2,7 +2,7 @@
 % Please edit documentation in R/extract.R
 \name{download_xml_files}
 \alias{download_xml_files}
-\title{Download all available Baupublikationen content}
+\title{Download Baupublikationen xml-files}
 \usage{
 download_xml_files(path, params)
 }
@@ -18,12 +18,12 @@ For all parameters, see the
 of the Amtsblattportal.}
 }
 \description{
-Downloading all available xml-files consisting of the meta information and
-content of all Baupublikationen.
+Downloading available xml-files based on your input paramater consisting of
+the meta information and content of all Baupublikationen.
 }
 \details{
-Note that if you specify a \code{publicationDate.start} and \code{publicationDate.end}
-in your "params", then it overwrites the "days_of_data" argument.
+Note that you can specify  \code{publicationDate.start} and \code{publicationDate.end}
+in your "params" (also see example).
 }
 \examples{
 \dontrun{

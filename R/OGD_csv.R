@@ -90,7 +90,7 @@ create_OGD_df <- function(days_of_data, base_file_path) {
       warning("If you want to download all available publications, set 'days_of_data' to 'all'.")
     }
     
-    dp_bp_new <- create_clean_df(new_url) |> 
+    dp_bp_new <- create_baupub_df(new_url) |> 
       dplyr::arrange(dplyr::desc(publicationDate))
 
     cat(paste0("actual new entries added to data frame: ", length(new_url), "\n"))
@@ -101,7 +101,7 @@ create_OGD_df <- function(days_of_data, base_file_path) {
   } else if (!is.null(df_bp) & length(new_url) != 0) {
     ### Case 2: OGD-resource exists and there are new publications -------------
 
-    df_bp_new <- create_clean_df(new_url)
+    df_bp_new <- create_baupub_df(new_url)
 
     df_bp <- dplyr::bind_rows(df_bp, df_bp_new) |>
       dplyr::arrange(dplyr::desc(publicationDate))
