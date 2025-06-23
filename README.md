@@ -8,16 +8,19 @@ It's important to note that a building application represents a legal notice—i
 
 **Important Links**
 - [API documentation of the Amtsblattportal](https://www.amtsblattportal.ch/docs/api/)
-- [data set with all building publications since autumn 2024](https://www.zh.ch/de/politik-staat/statistik-daten/datenkatalog.html#/) (updated on a daily basis)
+- [Data set with all building publications since autumn 2024](https://www.zh.ch/de/politik-staat/statistik-daten/datenkatalog.html#/) (updated on a daily basis)
 
 ## Installation
-
+```
+remotes::install_github("openZH/baupub_OGD",
+                        ref = "main")
+```
 
 
 ## Features
 
 - 📥 Download the official building permit data
-- 🔍 Parse and extract building permit details from XML
+- 🔍 Parse and extract building permit details from XML-files
 - 📦 Export spatialized data to a GeoPackage
 - 🗺️ Visualize permits on an interactive Leaflet map
     - 📐 Detect overlapping permit geometries
@@ -45,7 +48,7 @@ A wrapper function of `xml_to_df()`. Takes a list of XML URLs, retrieves the XML
 
 ⚙️ Core Function – Not user-facing, but central to the toolkit's architecture.
 
-Parses a single XML-file recursively, extracting and flattening all terminal (leaf) nodes into a structured format. This function is the backbone of the data transformation process used by create_baupub_df().
+Parses a single XML-file recursively, extracting and flattening all terminal (leaf) nodes into a structured format. This function is the backbone of the data transformation process used by `create_baupub_df()`.
 
 - `xml`: XML-file
 
