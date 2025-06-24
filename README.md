@@ -32,7 +32,7 @@ remotes::install_github("openZH/baupub_OGD",
 ### Retrieving and Processing XML-files
 
 #### `get_new_pub_url(page_size, url, params, df_bp)`
-Generates a list of XML URLs for newly published permits by comparing against existing IDs.
+Generates a list of XML URLs for newly published permits by comparing against existing IDs. Existing IDs come from the OGD-data set which will be passed into the function as `df_bp`. If this argument is left empty, IDs will only be downloaded as specified in `params`.
 
 - `page_size`: Number of entries to fetch per request (default = 100)
 - `url`: API base URL
