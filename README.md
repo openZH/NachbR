@@ -8,7 +8,7 @@ It's important to note that a building application represents a legal notice—i
 
 **Important Links**
 - [API documentation of the Amtsblattportal](https://www.amtsblattportal.ch/docs/api/)
-- [Data set with all building publications since autumn 2024](https://www.zh.ch/de/politik-staat/statistik-daten/datenkatalog.html#/) (updated on a daily basis, variable description can be found [here](https://github.com/openZH/baupub_OGD/blob/main/Variable-list.md))
+- [Data set with all building publications since autumn 2024](https://www.zh.ch/de/politik-staat/statistik-daten/datenkatalog.html#/) (updated on a daily basis, a variable description can be found [here](https://github.com/openZH/baupub_OGD/blob/main/Variable-list.md))
 
 ## Installation
 ```
