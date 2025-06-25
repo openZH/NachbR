@@ -1,11 +1,11 @@
 # Zurich "Baupublikationen" Toolkit
 
-The Zurich "Baupublikationen" Toolkit is built to work with official building permit data from the canton of Zurich. These data reflect all construction projects for which a building application has been submitted—an obligatory step for any building activity in the canton. Since 2019, such applications have been published exclusively in digital form via the Amtsblatt portal.
+The Zurich "Baupublikationen" Toolkit is built to work with official building permit data from the canton of Zurich. These data reflect all construction projects for which a building application has been submitted — an obligatory step for any building activity in the canton. Since 2019, such applications have been published exclusively in digital form via the Amtsblatt portal.
 
 The source data is maintained by individual municipalities, which record and submit building applications directly to the [Amtsblattportal](https://amtsblattportal.ch/#!/home). There, the applications are made publicly accessible, typically for up to one year. This toolkit systematically **retrieves**, **processes**, and **structures** these publications so they can be used for **spatial analysis**, **monitoring**, and **visualization**.
 
 > **Note**:
-A building application represents a legal notice—it does not guarantee that a project will be carried out as proposed. The toolkit does not track the outcome or execution status of a permit.
+A building application represents a legal notice — it does not guarantee that a project will be carried out as proposed. The toolkit does not track the outcome or execution status of a permit.
 
 ## 📎 Important Links
 - [API documentation of the Amtsblattportal](https://www.amtsblattportal.ch/docs/api/)
@@ -139,13 +139,13 @@ sf_bp |> create_map()
 
 
 ## 🔁 Replicate OGD dataset
-### `create_OGD_df(days_of_data, base_file_path)`
+#### `create_OGD_df(days_of_data, base_file_path)`
 Downloads and processes building permit publications from the Amtsblatt API. If the OGD dataset exists, new entries are appended; otherwise, a full dataset is created
 
 - `days_of_data`: Number of days to look back (or `"all"` for full history)
 - `base_file_path`: Path for local file storage
 
-### `create_gpkg(gpkg_file, df_bp, sf_liegenschaften)`
+#### `create_gpkg(gpkg_file, df_bp, sf_liegenschaften)`
 Exports building permit data to a **GeoPackage (.gpkg)**. If the file exists, only new entries (based on `id`) are appended.
 
 - `gpkg_file`: Destination path of the `.gpkg` file
@@ -155,7 +155,7 @@ Exports building permit data to a **GeoPackage (.gpkg)**. If the file exists, on
 **>Note**:
 Downloading `sf_liegenschaften` may take up to two hours due to infrastructure constraints at the Geo-Portal.
 
-### `create_map(sf_bp_geo)`
+#### `create_map(sf_bp_geo)`
 Generates a **Leaflet map** with detailed popups including permit number, date, address, deadlines, and overlapping projects.
 
 - `sf_bp_geo`: The layer written to `baupub.gpkg`
