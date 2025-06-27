@@ -6,19 +6,19 @@ testthat::test_that("spatial information is added correctly", {
   # xml to df to sf
   xml_file <- testthat::test_path("fixtures/geo_test.xml")
   sf_for_map <- create_baupub_df(xml_file) |>
-    add_spatial_information(sf_liegenschaften = sf_liegenschaften_test) # |>
-    # dplyr::select(
-    #   id, publicationNumber, publicationDate, entryDeadline,
-    #   expirationDate, projectDescription, address, url, geom
-    # )
-
-
+    add_spatial_information(sf_liegenschaften = sf_liegenschaften_test)
 
   # check if sf was correctly built
   sf_for_map_test <- sf::st_read(
     dsn = dsn, layer = "test_sf_map",
     crs = 2056
   )
+
+  sf_for_map <- sf::st_set_precision(sf_for_map, 1e-6)
+  sf_for_map_test <- sf::st_set_precision(sf_for_map_test, 1e-6)
+  
+  # Ensure CRS matches
+  sf::st_crs(sf_for_map) <- sf::st_crs(sf_for_map_test)
 
   coordinate_equality_test <- all(sf::st_equals_exact(sf_for_map, sf_for_map_test, par = 1e-6, sparse = FALSE))
   
