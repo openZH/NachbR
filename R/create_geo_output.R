@@ -152,7 +152,7 @@ create_map <- function(sf_bp_geo, days_of_data = 20) {
       "<br/>",
       "<b>Adresse: </b>", address,
       "<br/>",
-      "<b>\\u00dcberlappende Bauprojekte:</b>",
+      "<b>&Uuml;berlappende Bauprojekte:</b>",
       "<br/>",
       url_intersected_poly_merged
     ))
