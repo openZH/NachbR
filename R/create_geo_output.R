@@ -89,6 +89,9 @@ add_spatial_information <- function(df_bp, sf_liegenschaften) {
 #' @param sf_bp_geo An `sf` object containing spatial building permit data,
 #' including #' attributes such as `publicationNumber`, `entryDeadline`,
 #' `address`, and `url`.
+#' @param days_of_data Integer or Character. If a numeric value is provided, it
+#' specifies the number of days in the past from which to retrieve publications.
+#' If set to `"all"`, all publications will be displayed starting from January 2025.
 #'
 #' @return A Leaflet map widget displaying the building permit polygons and
 #' associated information.
@@ -99,7 +102,16 @@ add_spatial_information <- function(df_bp, sf_liegenschaften) {
 #' \dontrun{
 #' create_map(sf_bp_geo)
 #' }
-create_map <- function(sf_bp_geo) {
+create_map <- function(sf_bp_geo, days_of_data = 20) {
+  
+  if (days_of_data != "all"){
+    start_date = as.character(Sys.Date()-days_of_data)
+  } else {
+    start_date = "2025-01-01"
+  }
+  
+  sf_bp_geo <- sf_bp_geo |> 
+    dplyr::filter(publicationDate >= start_date)
 
   ####
   intersected_poly <- sf_bp_geo |>
