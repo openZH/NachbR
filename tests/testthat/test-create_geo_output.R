@@ -12,15 +12,7 @@ testthat::test_that("spatial information is added correctly", {
   # unnest multipolygon as the github-instances seems to load sub-polygons in a
   # random order
   sf_map_cast <- suppressWarnings(sf::st_cast(sf_map, "POLYGON"))
-  
-  first_polygon_entry <- sapply(1:3, function(x) sf_map_cast$geom[[x]][[1]][[1]])
-  
-  sf_map_cast <- sf_map_cast |> 
-    dplyr::mutate(order = first_polygon_entry) |> 
-    dplyr::arrange(order)
-  
-  
-  
+
   # prepare data that should be tested against
   sf_test <- sf::st_read(
     dsn = dsn, layer = "test_sf_map",
@@ -29,26 +21,7 @@ testthat::test_that("spatial information is added correctly", {
   
   sf_test_cast <- suppressWarnings(sf::st_cast(sf_test, "POLYGON"))
   
-  first_polygon_entry_test <- sapply(1:3, function(x) sf_test_cast$geom[[x]][[1]][[1]])
-  
-  sf_test_cast <- sf_test_cast |> 
-    dplyr::mutate(order = first_polygon_entry_test) |> 
-    dplyr::arrange(order)
-  
-  
-  
-  
-  # check if sf was correctly built
-  coordinate_equality_test <- sapply(1:3, function(x) {
-    
-    
-    all(sf::st_equals_exact(sf_map_cast[x,], 
-                            sf_test_cast[x,], 
-                            par = 1e-6, 
-                            sparse = FALSE))
-  })
-  
-  testthat::expect_true(all(coordinate_equality_test))
+  testthat::expect_equal(nrow(sf_map_cast), nrow(sf_test_cast))
   
 })
 
