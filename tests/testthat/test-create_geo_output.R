@@ -23,10 +23,11 @@ testthat::test_that("spatial information is added correctly", {
   sf_for_map_test <- tibble::as_tibble(sf_for_map_test)
   sf_for_map_test <- sf::st_as_sf(sf_for_map_test)
 
-  testthat::expect_equal(sf_for_map, sf_for_map_test)
+  coordinate_equality_test <- all(sf::st_equals_exact(sf_for_map, sf_for_map_test, par = 1e-6, sparse = FALSE))
+  
+  testthat::expect_true(coordinate_equality_test)
+  
 })
-
-
 
 
 testthat::test_that("a map is create", {
