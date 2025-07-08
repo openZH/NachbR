@@ -7,6 +7,6 @@
 # * https://testthat.r-lib.org/articles/special-files.html
 
 library(testthat)
-library(SpiessR)
+library(Nachbr)
 
-test_check("SpiessR")
+test_check("Nachbr")
