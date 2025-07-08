@@ -7,6 +7,6 @@
 # * https://testthat.r-lib.org/articles/special-files.html
 
 library(testthat)
-library(baupub)
+library(SpiessR)
 
-test_check("baupub")
+test_check("SpiessR")
