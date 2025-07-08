@@ -1,5 +1,5 @@
-Package: Nachbr
-Title: Nachbr
+Package: NachbR
+Title: NachbR
 Version: 0.1.0
 Authors@R: 
     person("Christoph", "Zust", , "datashop@statistik.zh.ch", role = c("aut", "cre"),

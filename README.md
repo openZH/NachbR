@@ -1,6 +1,6 @@
-# Nachbr Toolkit
+# NachbR Toolkit
 
-The "Nachbr" package is built to work with official building permit ("Baupublikationen") data from the canton of Zurich. These data reflect all construction projects for which a building application has been submitted — an obligatory step for any building activity in the canton. Since 2019, such applications have been published exclusively in digital form via the Amtsblatt portal.
+The "NachbR" package is built to work with official building permit ("Baupublikationen") data from the canton of Zurich. These data reflect all construction projects for which a building application has been submitted — an obligatory step for any building activity in the canton. Since 2019, such applications have been published exclusively in digital form via the Amtsblatt portal.
 
 The source data is maintained by individual municipalities, which record and submit building applications directly to the [Amtsblattportal](https://amtsblattportal.ch/#!/home). There, the applications are made publicly accessible, typically for up to one year. This toolkit systematically **retrieves**, **processes**, and **structures** these publications so they can be used for **spatial analysis**, **monitoring**, and **visualization**.
 
@@ -9,12 +9,12 @@ A building application represents a legal notice — it does not guarantee that 
 
 ## 📎 Important Links
 - [API documentation of the Amtsblattportal](https://www.amtsblattportal.ch/docs/api/)
-- [Dataset with all building publications since autumn 2024](https://www.zh.ch/de/politik-staat/statistik-daten/datenkatalog.html#/datasets/2982@statistisches-amt-kanton-zuerich) (*updated on a daily basis, a variable description can be found [here](https://github.com/openZH/baupub_OGD/blob/main/Variable-list.md)*)
+- [Dataset with all building publications since autumn 2024](https://www.zh.ch/de/politik-staat/statistik-daten/datenkatalog.html#/datasets/2982@statistisches-amt-kanton-zuerich) (*updated on a daily basis, a variable description can be found [here](https://github.com/openZH/NachbR/blob/main/Variable-list.md)*)
 
 
 ## 🔧 Installation
 ```
-remotes::install_github("openZH/Nachbr",
+remotes::install_github("openZH/NachbR",
                         ref = "main")
 ```
 

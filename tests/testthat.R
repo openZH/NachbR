@@ -7,6 +7,6 @@
 # * https://testthat.r-lib.org/articles/special-files.html
 
 library(testthat)
-library(Nachbr)
+library(NachbR)
 
-test_check("Nachbr")
+test_check("NachbR")
