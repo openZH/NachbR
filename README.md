@@ -1,6 +1,6 @@
-# Zurich "Baupublikationen" Toolkit
+# SpiessR Toolkit
 
-The Zurich "Baupublikationen" Toolkit is built to work with official building permit data from the canton of Zurich. These data reflect all construction projects for which a building application has been submitted — an obligatory step for any building activity in the canton. Since 2019, such applications have been published exclusively in digital form via the Amtsblatt portal.
+The "SpiessR" package is built to work with official building permit ("Baupublikationen") data from the canton of Zurich. These data reflect all construction projects for which a building application has been submitted — an obligatory step for any building activity in the canton. Since 2019, such applications have been published exclusively in digital form via the Amtsblatt portal.
 
 The source data is maintained by individual municipalities, which record and submit building applications directly to the [Amtsblattportal](https://amtsblattportal.ch/#!/home). There, the applications are made publicly accessible, typically for up to one year. This toolkit systematically **retrieves**, **processes**, and **structures** these publications so they can be used for **spatial analysis**, **monitoring**, and **visualization**.
 
@@ -9,11 +9,11 @@ A building application represents a legal notice — it does not guarantee that 
 
 ## 📎 Important Links
 - [API documentation of the Amtsblattportal](https://www.amtsblattportal.ch/docs/api/)
-- [Dataset with all building publications since autumn 2024](https://www.zh.ch/de/politik-staat/statistik-daten/datenkatalog.html#/) (*updated on a daily basis, a variable description can be found [here](https://github.com/openZH/baupub_OGD/blob/main/Variable-list.md)*)
+- [Dataset with all building publications since autumn 2024](https://www.zh.ch/de/politik-staat/statistik-daten/datenkatalog.html#/) (*updated on a daily basis, a variable description can be found [here](https://github.com/openZH/SpiessR/blob/main/Variable-list.md)*)
 
 ## 🔧 Installation
 ```
-remotes::install_github("openZH/baupub_OGD",
+remotes::install_github("openZH/SpiessR",
                         ref = "main")
 ```
 
