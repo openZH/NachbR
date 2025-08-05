@@ -53,13 +53,13 @@ get_geo_info <- function(df_bp, sf_liegenschaften) {
 #' get_liegenschaften_layer("data", "your.email@example.com", "Monday")
 #' }
 get_liegenschaften_layer <- function(file_destination, email_address, retrieval_day) {
-  
-  sf_file <- paste0(
+
+  current_liegenschaften <- paste0(
     file_destination, 
     "/AV_MOpublic-_Liegenschaften_-OGD/AVZH_LIEGENSCHAFTEN_F.shp"
   )
   
-  if (weekdays(Sys.Date()) == retrieval_day | !file.exists(sf_file)) {
+  if (weekdays(Sys.Date()) == retrieval_day | !file.exists(current_liegenschaften)) {
     dir.create(file_destination)
     
     url <- get_giszh_api_download_url(404, email_address)
@@ -72,10 +72,19 @@ get_liegenschaften_layer <- function(file_destination, email_address, retrieval_
     unzip(zip_file, exdir = file_destination)
   }
   
-  sf_liegenschaf <- sf::read_sf(sf_file) |>
+  sf_current_liegenschaf <- sf::read_sf(current_liegenschaften) |>
     dplyr::rename_with(tolower)
   
-  return(sf_liegenschaf)
+  sf_projected_liegenschaf <- sf::read_sf(
+    paste0(file_destination, 
+           "/AV_MOpublic-_Liegenschaften_-OGD/AVZH_LIEGENSCHAFTEN_PROJ_F.shp")
+    ) |>
+    dplyr::rename_with(tolower)
+  
+  sf_liegenschaften <- rbind(sf_current_liegenschaf,
+                             sf_projected_liegenschaf)
+  
+  return(sf_current_liegenschaf)
 }
 
 
