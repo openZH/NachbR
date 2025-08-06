@@ -154,13 +154,18 @@ Exports building permit data to a **GeoPackage (.gpkg)**. If the file exists, on
 - `df_bp`: Data frame of permit data
 - `sf_liegenschaften`: Spatial dataset of land parcels for spatial joins. This spatial dataset can be (down)loaded using the function `get_liegenschaften_layer()`.
 
-**>Note**:
+>**Note**:
 Downloading `sf_liegenschaften` may take up to two hours due to infrastructure constraints at the Geo-Portal.
 
-#### `create_map(sf_bp_geo)`
+#### `create_map(sf_bp_geo, start_date, end_date)`
 Generates a **Leaflet map** with detailed popups including permit number, date, address, deadlines, and overlapping projects.
 
 - `sf_bp_geo`: The layer written to `baupub.gpkg`
+- `start_date`: The first day for which building permit data should be included on the map
+- `end_date`: The last day for which building permit data should be included on the map
+
+>**Note**
+The default observation period is set to 20 days, as this is the timeframe during which objections to the project can be submitted.
 
 ---
 
