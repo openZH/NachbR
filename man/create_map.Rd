@@ -4,16 +4,23 @@
 \alias{create_map}
 \title{Create an Interactive Leaflet Map of Building Permits}
 \usage{
-create_map(sf_bp_geo, days_of_data = 20)
+create_map(
+  sf_bp_geo,
+  start_date = as.character(Sys.Date() - 20),
+  end_date = as.character(Sys.Date())
+)
 }
 \arguments{
 \item{sf_bp_geo}{An \code{sf} object containing spatial building permit data,
-including #' attributes such as \code{publicationNumber}, \code{entryDeadline},
+including attributes such as \code{publicationNumber}, \code{entryDeadline},
 \code{address}, and \code{url}.}
 
-\item{days_of_data}{Integer or Character. If a numeric value is provided, it
-specifies the number of days in the past from which to retrieve publications.
-If set to \code{"all"}, all publications will be displayed starting from January 2025.}
+\item{start_date}{A character date in the format "yyyy-mm-dd" representing the
+first day for which data should be included.
+first day for which data should be included.}
+
+\item{end_date}{A character date in the format "yyyy-mm-dd" representing the
+the last day for which data should be included.}
 }
 \value{
 A Leaflet map widget displaying the building permit polygons and
@@ -22,10 +29,16 @@ associated information.
 \description{
 Generates an interactive Leaflet map from spatial building permit data.
 Each polygon includes a popup with details such as publication number,
-publication date, entry deadline, address, and overlapping permits.
+publication date, entry deadline, address, and overlapping permits. The
+default observation period is set to 20 days, as this is the timeframe during
+which objections to the project can be submitted.
 }
 \examples{
 \dontrun{
+# creating a map of the last 20 days
 create_map(sf_bp_geo)
+
+# customize period of retrieval
+create_map(start_date = "20205-01-01", end_date = "2025-07-15")
 }
 }
