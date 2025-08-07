@@ -84,15 +84,18 @@ add_spatial_information <- function(df_bp, sf_liegenschaften) {
 #'
 #' Generates an interactive Leaflet map from spatial building permit data.
 #' Each polygon includes a popup with details such as publication number,
-#' publication date, entry deadline, address, and overlapping permits.
+#' publication date, entry deadline, address, and overlapping permits. The
+#' default observation period is set to 20 days, as this is the timeframe during
+#' which objections to the project can be submitted.
 #'
 #' @param sf_bp_geo An `sf` object containing spatial building permit data,
-#' including #' attributes such as `publicationNumber`, `entryDeadline`,
+#' including attributes such as `publicationNumber`, `entryDeadline`,
 #' `address`, and `url`.
-#' @param days_of_data Integer or Character. If a numeric value is provided, it
-#' specifies the number of days in the past from which to retrieve publications.
-#' If set to `"all"`, all publications will be displayed starting from January 2025.
-#'
+#' @param start_date A character date in the format "yyyy-mm-dd" representing the
+#' first day for which data should be included.
+#' first day for which data should be included.
+#' @param end_date A character date in the format "yyyy-mm-dd" representing the 
+#' the last day for which data should be included.
 #' @return A Leaflet map widget displaying the building permit polygons and
 #' associated information.
 #'
@@ -100,19 +103,29 @@ add_spatial_information <- function(df_bp, sf_liegenschaften) {
 #'
 #' @examples
 #' \dontrun{
+#' # creating a map of the last 20 days
 #' create_map(sf_bp_geo)
+#' 
+#' # customize period of retrieval
+#' sf_bp_geo |> 
+#' create_map(start_date = "20205-01-01", end_date = "2025-07-15")
 #' }
-create_map <- function(sf_bp_geo, days_of_data = 20) {
-  
-  if (days_of_data != "all"){
-    start_date = as.character(Sys.Date()-days_of_data)
-  } else {
-    start_date = "2025-01-01"
+create_map <- function(sf_bp_geo, 
+                       start_date = as.character(Sys.Date()-20),
+                       end_date = as.character(Sys.Date())) {
+
+  if (start_date < "2025-01-01") {
+    cli::cli_warn("There are no geo-referenced building permit applications before 2025-01-01.")
   }
   
   sf_bp_geo <- sf_bp_geo |> 
-    dplyr::filter(publicationDate >= start_date)
+    dplyr::filter(publicationDate >= start_date & publicationDate <= end_date)
 
+  if (nrow(sf_bp_geo) == 0) {
+    cli::cli_abort("There are no building permit application for this period.")
+  }
+    
+  
   ####
   intersected_poly <- sf_bp_geo |>
     sf::st_intersects()

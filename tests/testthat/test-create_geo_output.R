@@ -37,7 +37,8 @@ testthat::test_that("a map is create", {
     crs = 2056
   )
 
-  map <- sf_map_test |> create_map(days_of_data = "all")
+  map <- sf_map_test |> create_map(start_date = "2025-01-01", 
+                                   end_date = "2025-07-15")
 
   testthat::expect_equal(inherits(map, "leaflet"), TRUE)
 })
