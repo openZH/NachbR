@@ -4,10 +4,10 @@
 \alias{calc_geo_availability}
 \title{Calculate Share of Non-Georeferenced Building Permits}
 \usage{
-calc_geo_availability(sf_bp_deo, start_date, end_date)
+calc_geo_availability(sf_bp_geo, start_date, end_date)
 }
 \arguments{
-\item{sf_bp_deo}{An \code{sf} object containing building permit applications,
+\item{sf_bp_geo}{An \code{sf} object containing building permit applications,
 including a geometry column and a \code{publicationDate} attribute.}
 
 \item{start_date}{A character string in the format "yyyy-mm-dd" specifying
@@ -27,6 +27,6 @@ the completeness of spatial information in the dataset.
 }
 \examples{
 \dontrun{
-calc_geo_availability(sf_bp_deo, start_date = "2025-01-01", end_date = "2025-07-15")
+calc_geo_availability(sf_bp_geo, start_date = "2025-01-01", end_date = "2025-07-15")
 }
 }

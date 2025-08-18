@@ -101,7 +101,7 @@ add_spatial_information <- function(df_bp, sf_liegenschaften) {
 #'
 #' @examples
 #' \dontrun{
-#' calc_geo_availability(sf_bp_deo, start_date = "2025-01-01", end_date = "2025-07-15")
+#' calc_geo_availability(sf_bp_geo, start_date = "2025-01-01", end_date = "2025-07-15")
 #' }
 calc_geo_availability <- function(sf_bp_geo, start_date, end_date) {
   
@@ -234,24 +234,26 @@ create_map <- function(sf_bp_geo,
     htmltools::HTML(paste0('<h3>Nutzungshinweise</h3>
     <hr>
     <h4>Beobachtungszeitraum</h4>
-    Diese Karte wird täglich aktualisiert und zeigt alle Baugesuche, welche 
-    aktuell in Zürcher Gemeinden aufliegen. Während dieser 20-tägigen Planauflage  
-    können Baurechtsentscheide bei der Baubehörde eingefordert werden. Dies bildet 
-    die Grundlage für allfällige Rekurse. 
+    Diese Karte wird t\u00E4glich aktualisiert und zeigt alle Baugesuche, welche 
+    aktuell in Z\u00FCrcher Gemeinden aufliegen. W\u00E4hrend dieser 
+    20-t\u00E4gigen Planauflage k\u00F6nnen Baurechtsentscheide bei der 
+    Baubeh\u00F6rde eingefordert werden. Dies bildet die Grundlage f\u00FCr 
+    allf\u00E4llige Rekurse. 
     
     <br/>
     <br/>
     
-    <h4>Datenqualität</h4>
-    <p>Nicht alle Bausgesuche lassen sich aus Gründen der Datenqualität eindeutig 
-    den entsprechenden Liegenschaften zuordnen. Im aktuellen Beobachtungszeitraum 
-    (', observed_period, ') konnten rund ', available_share, '% aller Baugesuche 
-    mindestens einer Liegenschaft zugeordnet werden.
+    <h4>Datenqualit\u00E4t</h4>
+    <p>Nicht alle Bausgesuche lassen sich aus Gr\u00FCnden der Datenqualit\u00E4t 
+    eindeutig den entsprechenden Liegenschaften zuordnen. Im aktuellen 
+    Beobachtungszeitraum (', observed_period, ') konnten rund 
+    ', available_share, '% aller Baugesuche mindestens einer Liegenschaft 
+    zugeordnet werden.
     <br/>
     <br/>
-    <b>Diese Visualisierung der laufenden Baugesuche dient daher als ergänzende 
-    Informationsquelle. Die verbindliche Hauptquelle bleibt stets das 
-    <a href="https://amtsblatt.zh.ch/#!/gazette">Amtsblatt des Kantons Zürich</a></b>.</p>'
+    <b>Diese Visualisierung der laufenden Baugesuche dient daher als 
+    erg\u00E4nzende Informationsquelle. Die verbindliche Hauptquelle bleibt 
+    stets das <a href="https://amtsblatt.zh.ch/#!/gazette">Amtsblatt des Kantons Z\u00FCrich</a></b>.</p>'
                            )
                     ),
     
