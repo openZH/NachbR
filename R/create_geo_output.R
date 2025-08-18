@@ -290,7 +290,7 @@ create_map <- function(sf_bp_geo,
     leaflet::addEasyButton(leaflet::easyButton(
       icon = "fa-info-circle", title = "Map Information",
       onClick = htmlwidgets::JS("function(btn, map){ $('#infobox').modal('show'); }")
-    )) %>% # Trigger the infobox
+    )) |> # Trigger the infobox
     htmlwidgets::appendContent(info.box)
 
 }
