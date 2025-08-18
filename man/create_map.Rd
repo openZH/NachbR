@@ -39,6 +39,7 @@ which objections to the project can be submitted.
 create_map(sf_bp_geo)
 
 # customize period of retrieval
+sf_bp_geo |> 
 create_map(start_date = "20205-01-01", end_date = "2025-07-15")
 }
 }
