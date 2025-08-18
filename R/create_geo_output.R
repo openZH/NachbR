@@ -48,6 +48,7 @@ create_gpkg <- function(gpkg_file, df_bp, sf_liegenschaften) {
 }
 
 
+
 #' Prepare Building Permit Data for Export as Spatial Features
 #'
 #' Converts building permit data into a spatial format with Swiss coordinate
@@ -78,6 +79,43 @@ add_spatial_information <- function(df_bp, sf_liegenschaften) {
 
   return(sf_bp_geo)
 }
+
+
+
+#' Calculate Share of Non-Georeferenced Building Permits
+#'
+#' Computes the percentage of building permit applications within a given date 
+#' range that do not contain valid geometries. This is useful for assessing 
+#' the completeness of spatial information in the dataset. 
+#'
+#' @param sf_bp_geo An `sf` object containing building permit applications, 
+#' including a geometry column and a `publicationDate` attribute.
+#' @param start_date A character string in the format "yyyy-mm-dd" specifying 
+#' the first day to include in the calculation.
+#' @param end_date A character string in the format "yyyy-mm-dd" specifying 
+#' the last day to include in the calculation.
+#'
+#' @return A numeric value representing the percentage of permits without valid 
+#' geometries, rounded to two decimal places.
+#'
+#'
+#' @examples
+#' \dontrun{
+#' calc_geo_availability(sf_bp_geo, start_date = "2025-01-01", end_date = "2025-07-15")
+#' }
+calc_geo_availability <- function(sf_bp_geo, start_date, end_date) {
+  
+  sf_bp_geo <- sf_bp_geo |> 
+      dplyr::mutate(publicationDate = as.Date(publicationDate)) |> 
+      dplyr::filter(publicationDate >= as.Date(start_date) & 
+                      publicationDate <= as.Date(end_date))
+  
+  share <- sum(!sf::st_is_empty(sf_bp_geo)) / nrow(sf_bp_geo)
+  share <- round(share * 100, 2)
+
+  return(share)
+  }
+
 
 
 #' Create an Interactive Leaflet Map of Building Permits
@@ -114,6 +152,8 @@ create_map <- function(sf_bp_geo,
                        start_date = as.character(Sys.Date()-20),
                        end_date = as.character(Sys.Date())) {
 
+  
+  # Warnings
   if (start_date < "2025-01-01") {
     cli::cli_warn("There are no geo-referenced building permit applications before 2025-01-01.")
   }
@@ -125,26 +165,28 @@ create_map <- function(sf_bp_geo,
     cli::cli_abort("There are no building permit application for this period.")
   }
     
-  
-  ####
+  # find polygons that overlap (indexes of polygons)
   intersected_poly <- sf_bp_geo |>
     sf::st_intersects()
-
+  
+  # isolate the overlapping polygons that do not have the same index
+  # --> making sure publication 1 is not categorized as "overlapping with 
+  # publication 1"
   intersected_poly <- purrr::map(seq_along(intersected_poly), ~ {
     intersected_poly[[.x]][intersected_poly[[.x]] != .x]
   })
-
-  ####
+  
+  # isolate publication numbers of overlapping polygons
   publicationNumber_intersected_poly <- purrr::map(intersected_poly, ~ {
     sf_bp_geo$publicationNumber[.x]
   })
 
-  ####
+  # isolte url of overlapping polygons
   url_intersected_poly <- purrr::map(intersected_poly, ~ {
     sf_bp_geo$url[.x]
   })
 
-  ####
+  # create hyperlinks
   url_intersected_poly_merged <- purrr::map2_chr(publicationNumber_intersected_poly, url_intersected_poly, ~ {
     paste("<a href='", .y, "' target = '_blank'>", .x, "</a></b>", collapse = "<br/>")
   })
@@ -154,10 +196,11 @@ create_map <- function(sf_bp_geo,
     url_intersected_poly_merged
   )
 
+  # define enriched input for leaflet map
   sf_bp_geo_wgs84 <- sf_bp_geo |>
     sf::st_transform(crs = 4326) |>
     dplyr::mutate(popup_text = paste0(
-      "<b> Meldungsnummer: <a href='", url, "' target = 'blank'>", publicationNumber, "</a> </b>",
+      "<b> Meldungsnummer: </b><a href='", url, "' target = 'blank'>", publicationNumber, "</a>",
       "<br/>",
       "<b>Publikationsdatum: </b>", publicationDate,
       "<br/>",
@@ -170,7 +213,58 @@ create_map <- function(sf_bp_geo,
       url_intersected_poly_merged
     ))
 
+  
+  # calculate share of liegenschaften that could not be linked to a polygon
+  available_share <- calc_geo_availability(sf_bp_geo, start_date, end_date)
+  observed_period <- paste0(format(as.Date(start_date), "%d.%m.%Y"),
+                            " - " , 
+                            format(as.Date(end_date), "%d.%m.%Y"))
 
+  # Define HTML for the infobox
+  info.box <- htmltools::HTML(paste0(
+    htmltools::HTML(
+      '<div class="modal fade" id="infobox" role="dialog">
+      <div class="modal-dialog"><!-- Modal content-->
+      <div class="modal-content">
+      <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal">&times;</button>'
+    ),
+    
+    # Body
+    htmltools::HTML(paste0('<h3>Nutzungshinweise</h3>
+    <hr>
+    <h4>Beobachtungszeitraum</h4>
+    Diese Karte wird t\u00E4glich aktualisiert und zeigt alle Baugesuche, welche 
+    aktuell in Z\u00FCrcher Gemeinden aufliegen. W\u00E4hrend dieser 
+    20-t\u00E4gigen Planauflage k\u00F6nnen Baurechtsentscheide bei der 
+    Baubeh\u00F6rde eingefordert werden. Dies bildet die Grundlage f\u00FCr 
+    allf\u00E4llige Rekurse. 
+    
+    <br/>
+    <br/>
+    
+    <h4>Datenqualit\u00E4t</h4>
+    <p>Nicht alle Bausgesuche lassen sich aus Gr\u00FCnden der Datenqualit\u00E4t 
+    eindeutig den entsprechenden Liegenschaften zuordnen. Im aktuellen 
+    Beobachtungszeitraum (', observed_period, ') konnten rund 
+    ', available_share, '% aller Baugesuche mindestens einer Liegenschaft 
+    zugeordnet werden.
+    <br/>
+    <br/>
+    <b>Diese Visualisierung der laufenden Baugesuche dient daher als 
+    erg\u00E4nzende Informationsquelle. Die verbindliche Hauptquelle bleibt 
+    stets das <a href="https://amtsblatt.zh.ch/#!/gazette">Amtsblatt des Kantons Z\u00FCrich</a></b>.</p>'
+                           )
+                    ),
+    
+    # Closing divs
+    htmltools::HTML('</div><div class="modal-footer"></div></div>')
+  ))
+  
+  
+  
+  
+  
   leaflet::leaflet(sf_bp_geo_wgs84) |>
     leaflet::addTiles("https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png",
       attribution = paste(
@@ -191,5 +285,12 @@ create_map <- function(sf_bp_geo,
       lat1 = min(sf::st_bbox(sf_bp_geo_wgs84)["ymin"]),
       lng2 = max(sf::st_bbox(sf_bp_geo_wgs84)["xmax"]),
       lat2 = max(sf::st_bbox(sf_bp_geo_wgs84)["ymax"])
-    )
+    ) |> 
+    leaflet.extras::addBootstrapDependency() |> 
+    leaflet::addEasyButton(leaflet::easyButton(
+      icon = "fa-info-circle", title = "Map Information",
+      onClick = htmlwidgets::JS("function(btn, map){ $('#infobox').modal('show'); }")
+    )) %>% # Trigger the infobox
+    htmlwidgets::appendContent(info.box)
+
 }
