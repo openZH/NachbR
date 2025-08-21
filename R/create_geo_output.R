@@ -235,10 +235,10 @@ create_map <- function(sf_bp_geo,
     <hr>
     
     <h4>Beobachtungszeitraum (', observed_period,')</h4>
-    Die Karte zeigt alle Baugesuche der letzten 20 Tage in Zürcher Gemeinden, 
-    die eindeutig einer Liegenschaft zugeordnet werden können. Während der 
-    20-tägigen Auflagefrist können bei der Baubehörde Baurechtsentscheide verlangt 
-    werden, die Grundlage für mögliche Rekurse sind. Die Karte wird t\u00E4glich 
+    Die Karte zeigt alle Baugesuche der letzten 20 Tage in Z\u00FCrcher Gemeinden, 
+    die eindeutig einer Liegenschaft zugeordnet werden k&oumlnnen. W\u00E4hrend der 
+    20-t\u00E4gigen Auflagefrist k&oumlnnen bei der Baubeh&oumlrde Baurechtsentscheide verlangt 
+    werden, die Grundlage f\u00FCr m&oumlgliche Rekurse sind. Die Karte wird t\u00E4glich 
     aktualisiert.
     
     <br/>
@@ -255,24 +255,24 @@ create_map <- function(sf_bp_geo,
     <br/>
     
     <b>Diese Visualisierung der laufenden Baugesuche dient als erg\u00E4nzende 
-    Informationsquelle. Rechtsverbindlich ist ausschließlich die Publikation im 
+    Informationsquelle. Rechtsverbindlich ist ausschliesslich die Publikation im 
     <a href="https://amtsblatt.zh.ch/#!/gazette">Amtsblatt des Kantons Z\u00FCrich</a>.</b>
 
     <br/>
     <br/>
     
-    <h4>Datenquelle und weiterführende Informationen</h4>
+    <h4>Datenquelle und weiterf\u00FChrende Informationen</h4>
     
     Die verbindliche Hauptquelle ist das 
     <a href="https://amtsblatt.zh.ch/#!/gazette">Amtsblatt des Kantons Z\u00FCrich</a>, 
-    in dem sämtliche Baugesuche publiziert werden. Die hier dargestellten Daten 
-    werden von Fach- und Koordinationsstelle OGD des Kantons Zürich aufbereitet 
-    und zur Verfügung gestellt.
+    in dem s\u00E4mtliche Baugesuche publiziert werden. Die hier dargestellten Daten 
+    werden von der Fach- und Koordinationsstelle OGD des Kantons Z\u00FCrich aufbereitet 
+    und zur Verf\u00FCgung gestellt.
     
     <br/>
     <br/>
     
-    Weitere Datensätze und Informationen zu Baugesuche im Kanton Zürich 
+    Weitere Datens\u00E4tze und Informationen zu Baugesuche im Kanton Z\u00FCrich 
     (z.B. ein Datensatz, der auch die nicht georeferenzierbaren Baugesuche umfasst) 
     sind in unserem
     <a href="https://www.zh.ch/de/politik-staat/statistik-daten/datenkatalog.html#/datasets/2982@statistisches-amt-kanton-zuerich">Datenkatalog</a>
