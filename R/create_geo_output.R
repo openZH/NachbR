@@ -213,9 +213,9 @@ create_map <- function(sf_bp_geo,
       url_intersected_poly_merged
     ))
 
-  
   # calculate share of liegenschaften that could not be linked to a polygon
-  available_share <- calc_geo_availability(sf_bp_geo, start_date, end_date)
+  available_share <- calc_geo_availability(sf_bp_geo, start_date, end_date) |> 
+    as.character() |> gsub(pattern = "\\.", replacement = ",")
   observed_period <- paste0(format(as.Date(start_date), "%d.%m.%Y"),
                             " - " , 
                             format(as.Date(end_date), "%d.%m.%Y"))
@@ -233,36 +233,56 @@ create_map <- function(sf_bp_geo,
     # Body
     htmltools::HTML(paste0('<h3>Nutzungshinweise</h3>
     <hr>
-    <h4>Beobachtungszeitraum</h4>
-    Diese Karte wird t\u00E4glich aktualisiert und zeigt alle Baugesuche, welche 
-    aktuell in Z\u00FCrcher Gemeinden aufliegen. W\u00E4hrend dieser 
-    20-t\u00E4gigen Planauflage k\u00F6nnen Baurechtsentscheide bei der 
-    Baubeh\u00F6rde eingefordert werden. Dies bildet die Grundlage f\u00FCr 
-    allf\u00E4llige Rekurse. 
+    
+    <h4>Beobachtungszeitraum (', observed_period,')</h4>
+    Die Karte zeigt alle Baugesuche der letzten 20 Tage in Z\u00FCrcher Gemeinden, 
+    die eindeutig einer Liegenschaft zugeordnet werden k&oumlnnen. W\u00E4hrend der 
+    20-t\u00E4gigen Auflagefrist k&oumlnnen bei der Baubeh&oumlrde Baurechtsentscheide verlangt 
+    werden, die Grundlage f\u00FCr m&oumlgliche Rekurse sind. Die Karte wird t\u00E4glich 
+    aktualisiert.
+    
+    <br/>
+    <br/>
+
+    
+    <h4>Georeferenzierung</h4>
+    <p>Aus Gr\u00FCnden der Datenqualit\u00E4t lassen sich nicht alle 
+    Baugesuche eindeutig den entsprechenden Liegenschaften zuordnen. Im aktuellen 
+    Beobachtungszeitraum konnten rund ', available_share, '% aller Baugesuche 
+    mindestens einer Liegenschaft zugeordnet werden.
     
     <br/>
     <br/>
     
-    <h4>Datenqualit\u00E4t</h4>
-    <p>Nicht alle Bausgesuche lassen sich aus Gr\u00FCnden der Datenqualit\u00E4t 
-    eindeutig den entsprechenden Liegenschaften zuordnen. Im aktuellen 
-    Beobachtungszeitraum (', observed_period, ') konnten rund 
-    ', available_share, '% aller Baugesuche mindestens einer Liegenschaft 
-    zugeordnet werden.
+    <b>Diese Visualisierung der laufenden Baugesuche dient als erg\u00E4nzende 
+    Informationsquelle. Rechtsverbindlich ist ausschliesslich die Publikation im 
+    <a href="https://amtsblatt.zh.ch/#!/gazette">Amtsblatt des Kantons Z\u00FCrich</a>.</b>
+
     <br/>
     <br/>
-    <b>Diese Visualisierung der laufenden Baugesuche dient daher als 
-    erg\u00E4nzende Informationsquelle. Die verbindliche Hauptquelle bleibt 
-    stets das <a href="https://amtsblatt.zh.ch/#!/gazette">Amtsblatt des Kantons Z\u00FCrich</a></b>.</p>'
+    
+    <h4>Datenquelle und weiterf\u00FChrende Informationen</h4>
+    
+    Die verbindliche Hauptquelle ist das 
+    <a href="https://amtsblatt.zh.ch/#!/gazette">Amtsblatt des Kantons Z\u00FCrich</a>, 
+    in dem s\u00E4mtliche Baugesuche publiziert werden. Die hier dargestellten Daten 
+    werden von der Fach- und Koordinationsstelle OGD des Kantons Z\u00FCrich aufbereitet 
+    und zur Verf\u00FCgung gestellt.
+    
+    <br/>
+    <br/>
+    
+    Weitere Datens\u00E4tze und Informationen zu Baugesuchen im Kanton Z\u00FCrich 
+    (z.B. ein Datensatz, der auch die nicht georeferenzierbaren Baugesuche umfasst) 
+    sind in unserem
+    <a href="https://www.zh.ch/de/politik-staat/statistik-daten/datenkatalog.html#/datasets/2982@statistisches-amt-kanton-zuerich">Datenkatalog</a>
+    zu finden.</p>'
                            )
                     ),
     
     # Closing divs
     htmltools::HTML('</div><div class="modal-footer"></div></div>')
   ))
-  
-  
-  
   
   
   leaflet::leaflet(sf_bp_geo_wgs84) |>
