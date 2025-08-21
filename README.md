@@ -91,6 +91,8 @@ Converts a cleaned permit data frame into a spatial layer (sf) and enriches it w
 #### `create_map(sf_bp_geo)`
 Generates an interactive Leaflet map of permits.
 - `sf_bp_geo`: Spatial permit layer (output from add_spatial_information())
+- `start_date`: The first day for which data should be retrieved
+- `end_date`: The last day for which data should be retrieved
 
 🗺️ Returns an interactive map with popups, styled polygons, and zoom-to-fit behavior.
 
@@ -191,7 +193,7 @@ sf_bp <- add_spatial_information(df_bp, sf_liegenschaften)
 # Step 5: Export to GeoPackage
 create_gpkg("baupub.gpkg", df_bp, sf_liegenschaften)
 
-# Step 6: Visualize in an interactive map
+# Step 6: Visualize in an interactive map (last 20 days)
 create_map(sf_bp)
 ```
 
