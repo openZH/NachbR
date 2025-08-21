@@ -248,8 +248,8 @@ create_map <- function(sf_bp_geo,
     <h4>Georeferenzierung</h4>
     <p>Aus Gr\u00FCnden der Datenqualit\u00E4t lassen sich nicht alle 
     Baugesuche eindeutig den entsprechenden Liegenschaften zuordnen. Im aktuellen 
-    Beobachtungszeitraum konnten rund ', available_share, '% aller Baugesuche mindestens einer Liegenschaft 
-    zugeordnet werden.
+    Beobachtungszeitraum konnten rund ', available_share, '% aller Baugesuche 
+    mindestens einer Liegenschaft zugeordnet werden.
     
     <br/>
     <br/>
@@ -272,7 +272,7 @@ create_map <- function(sf_bp_geo,
     <br/>
     <br/>
     
-    Weitere Datens\u00E4tze und Informationen zu Baugesuche im Kanton Z\u00FCrich 
+    Weitere Datens\u00E4tze und Informationen zu Baugesuchen im Kanton Z\u00FCrich 
     (z.B. ein Datensatz, der auch die nicht georeferenzierbaren Baugesuche umfasst) 
     sind in unserem
     <a href="https://www.zh.ch/de/politik-staat/statistik-daten/datenkatalog.html#/datasets/2982@statistisches-amt-kanton-zuerich">Datenkatalog</a>
