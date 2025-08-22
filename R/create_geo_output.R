@@ -235,7 +235,7 @@ create_map <- function(sf_bp_geo,
     <hr>
     
     <h4>Beobachtungszeitraum (', observed_period,')</h4>
-    Die Karte zeigt alle Baugesuche der letzten 20 Tage in Z\u00FCrcher Gemeinden, 
+    Die Karte zeigt alle Baugesuche der letzten 20 Tage im Kanton Z\u00FCrich, 
     die eindeutig einer Liegenschaft zugeordnet werden k&oumlnnen. W\u00E4hrend der 
     20-t\u00E4gigen Auflagefrist k&oumlnnen bei der Baubeh&oumlrde Baurechtsentscheide verlangt 
     werden, die Grundlage f\u00FCr m&oumlgliche Rekurse sind. Die Karte wird t\u00E4glich 
@@ -255,7 +255,7 @@ create_map <- function(sf_bp_geo,
     <br/>
     
     <b>Diese Visualisierung der laufenden Baugesuche dient als erg\u00E4nzende 
-    Informationsquelle. Rechtsverbindlich ist ausschliesslich die Publikation im 
+    Informationsquelle. Rechtsverbindlich sind ausschliesslich die Publikationen im 
     <a href="https://amtsblatt.zh.ch/#!/gazette">Amtsblatt des Kantons Z\u00FCrich</a>.</b>
 
     <br/>
