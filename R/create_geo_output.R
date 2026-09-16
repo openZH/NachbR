@@ -128,6 +128,10 @@ calc_geo_availability <- function(sf_bp_geo, start_date, end_date) {
 #' first day for which data should be included.
 #' @param end_date A character date in the format "yyyy-mm-dd" representing the
 #' the last day for which data should be included.
+#' @param carto_basemap_api_key An api-key such that the background map is displayed
+#' correctly. The key can be requested \href{https://carto.com/basemaps/apikey/}{here} 
+#' for free.
+#' 
 #' @return A Leaflet map widget displaying the building permit polygons and
 #' associated information.
 #'
@@ -144,7 +148,8 @@ calc_geo_availability <- function(sf_bp_geo, start_date, end_date) {
 #' }
 create_map <- function(sf_bp_geo,
                        start_date = as.character(Sys.Date() - 20),
-                       end_date = as.character(Sys.Date())) {
+                       end_date = as.character(Sys.Date()),
+                       carto_basemap_api_key) {
   
   # Warnings
   if (start_date < "2025-01-01") {
@@ -285,7 +290,8 @@ create_map <- function(sf_bp_geo,
     htmltools::HTML("</div><div class='modal-footer'></div></div>")
   ))
   leaflet::leaflet(sf_bp_geo_wgs84) |>
-    leaflet::addTiles("https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png",
+    leaflet::addTiles(paste0("https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png",
+                             "?key=", carto_basemap_api_key),
                       attribution = paste(
                         '&copy; <a href="https://openstreetmap.org">OpenStreetMap</a> contributors',
                         '&copy; <a href="https://cartodb.com/attributions">CartoDB</a>'
