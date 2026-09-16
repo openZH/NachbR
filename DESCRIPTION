@@ -1,6 +1,6 @@
 Package: NachbR
 Title: NachbR
-Version: 0.1.0
+Version: 0.1.1
 Authors@R: 
     person("Christoph", "Zust", , "datashop@statistik.zh.ch", role = c("aut", "cre"),
            comment = c(ORCID = "YOUR-ORCID-ID"))
