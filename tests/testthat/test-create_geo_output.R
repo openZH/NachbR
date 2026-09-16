@@ -38,7 +38,8 @@ testthat::test_that("a map is create", {
   )
 
   map <- sf_map_test |> create_map(start_date = "2025-01-01", 
-                                   end_date = "2025-07-15")
+                                   end_date = "2025-07-15",
+                                   carto_basemap_api_key = "dummy_key_for_tests")
 
   testthat::expect_equal(inherits(map, "leaflet"), TRUE)
 })

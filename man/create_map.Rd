@@ -7,7 +7,8 @@
 create_map(
   sf_bp_geo,
   start_date = as.character(Sys.Date() - 20),
-  end_date = as.character(Sys.Date())
+  end_date = as.character(Sys.Date()),
+  carto_basemap_api_key
 )
 }
 \arguments{
@@ -21,6 +22,10 @@ first day for which data should be included.}
 
 \item{end_date}{A character date in the format "yyyy-mm-dd" representing the
 the last day for which data should be included.}
+
+\item{carto_basemap_api_key}{An api-key such that the background map is displayed
+correctly. The key can be requested \href{https://carto.com/basemaps/apikey/}{here}
+for free.}
 }
 \value{
 A Leaflet map widget displaying the building permit polygons and
@@ -39,7 +44,7 @@ which objections to the project can be submitted.
 create_map(sf_bp_geo)
 
 # customize period of retrieval
-sf_bp_geo |> 
+sf_bp_geo |>
 create_map(start_date = "20205-01-01", end_date = "2025-07-15")
 }
 }
