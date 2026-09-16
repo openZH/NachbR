@@ -88,11 +88,12 @@ Converts a cleaned permit data frame into a spatial layer (sf) and enriches it w
 📌 Output is in coordinate system **EPSG:2056**.
 
 
-#### `create_map(sf_bp_geo)`
+#### `create_map(sf_bp_geo, start_date, end_date, carto_basemap_api_key)`
 Generates an interactive Leaflet map of permits.
 - `sf_bp_geo`: Spatial permit layer (output from add_spatial_information())
 - `start_date`: The first day for which data should be retrieved
 - `end_date`: The last day for which data should be retrieved
+-  `carto_basemap_api_key`: An api-key such that the background layer is displayed correctly. A key can be requested from [carto.com](https://carto.com/basemaps/apikey/)
 
 🗺️ Returns an interactive map with popups, styled polygons, and zoom-to-fit behavior.
 
@@ -131,7 +132,7 @@ sf_bp <- df_bp |>
   add_spatial_information(sf_liegenschaften)
 
 # Step 6: Visualize building projects
-sf_bp |> create_map()
+sf_bp |> create_map(carto_basemap_api_key)
 
 
 
@@ -159,12 +160,13 @@ Exports building permit data to a **GeoPackage (.gpkg)**. If the file exists, on
 >**Note**:
 Downloading `sf_liegenschaften` may take up to two hours due to infrastructure constraints at the Geo-Portal.
 
-#### `create_map(sf_bp_geo, start_date, end_date)`
+#### `create_map(sf_bp_geo, start_date, end_date, carto_basemap_api_key)`
 Generates a **Leaflet map** with detailed popups including permit number, date, address, deadlines, and overlapping projects.
 
 - `sf_bp_geo`: The layer written to `baupub.gpkg`
 - `start_date`: The first day for which building permit data should be included on the map
 - `end_date`: The last day for which building permit data should be included on the map
+- `carto_basemap_api_key`: An api-key such that the background layer is displayed correctly. A key can be requested from [carto.com](https://carto.com/basemaps/apikey/)
 
 >**Note**
 The default observation period is set to 20 days, as this is the timeframe during which objections to the project can be submitted.
@@ -194,7 +196,7 @@ sf_bp <- add_spatial_information(df_bp, sf_liegenschaften)
 create_gpkg("baupub.gpkg", df_bp, sf_liegenschaften)
 
 # Step 6: Visualize in an interactive map (last 20 days)
-create_map(sf_bp)
+create_map(sf_bp, carto_basemap_api_key)
 ```
 
 
