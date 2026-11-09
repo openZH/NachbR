@@ -257,8 +257,16 @@ clean_cadaster <- function(df_bp) {
 #' @export
 #'
 get_legal_entity_info <- function(df_bp) {
-  legal_entity_info <- read.csv2(
-    "https://api.i14y.admin.ch/api/public/v1/concepts/08dad8ff-f18a-560b-bfa6-20767f2afb17/codelist-entries/exports/csv"
+  url <- "https://api.i14y.admin.ch/api/public/v1/concepts/08dad8ff-f18a-560b-bfa6-20767f2afb17/codelist-entries/exports/csv"
+
+  first_line <- readLines(url, n = 1, warn = FALSE)
+
+  seperator <- ifelse(grepl(",", first_line), ",", ";")
+
+  legal_entity_info <- read.table(
+    url,
+    header = TRUE,
+    sep = seperator
   ) |>
     dplyr::rename_with(tolower) |>
     dplyr::select(name_de, name_en, code)
