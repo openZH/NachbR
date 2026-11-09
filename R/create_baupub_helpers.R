@@ -13,7 +13,7 @@ clean_df_bp <- function(df_bp) {
     "projectLocation_address_swissZipCode",
     "localization_municipalityId_key",
     # legal forms
-    "buildingContractor_company_legalForm", 
+    "buildingContractor_company_legalForm",
     "projectFramer_company_legalForm",
     "delegation_buildingContractor_company_legalForm",
     # zip codes of involved parties
@@ -28,12 +28,14 @@ clean_df_bp <- function(df_bp) {
     "projectLocation_address_index"
   )
 
-
   df_bp <- df_bp |>
     clean_cadaster() |>
     # unnest the cadaster column
-    tidyr::separate_rows(districtCadastre_relation_cadastre, sep = ",") |> 
-    dplyr::mutate(dplyr::across(tidyselect::any_of(integer_cols), as.integer)) |>
+    tidyr::separate_rows(districtCadastre_relation_cadastre, sep = ",") |>
+    dplyr::mutate(dplyr::across(
+      tidyselect::any_of(integer_cols),
+      as.integer
+    )) |>
     dplyr::rename(
       bfs_nr = localization_municipalityId_key,
       municipality_name = localization_municipalityId_term_de
@@ -41,12 +43,12 @@ clean_df_bp <- function(df_bp) {
     # removing all possible line breaks in character columns
     dplyr::mutate(dplyr::across(
       tidyselect::where(is.character),
-      ~ gsub("\n", " ", .))) |>
+      ~ gsub("\n", " ", .)
+    )) |>
     dplyr::mutate(last_updated = as.character(Sys.Date()))
 
   return(df_bp)
 }
-
 
 
 #' Define and select the columns of interest for the OGD data frame
@@ -125,86 +127,124 @@ get_columns_of_interest <- function(df_bp) {
 #' @export
 #'
 clean_cadaster <- function(df_bp) {
-  
   # note that "gsub" and "sub" are chosen consciousely because sometimes you only
   # want to replace a pattern once
   df <- df_bp |>
     ## cleaning cadaster-numbers:
     dplyr::mutate(
       districtCadastre_relation_cadastre_raw = districtCadastre_relation_cadastre
-      ) |>
+    ) |>
     # replace all "und" with ","
     dplyr::mutate(
-      districtCadastre_relation_cadastre = 
-        gsub("und", ",", districtCadastre_relation_cadastre)
+      districtCadastre_relation_cadastre = gsub(
+        "und",
+        ",",
+        districtCadastre_relation_cadastre
+      )
     ) |>
-    # if there is the string "Vers" or "vers", only keep everything up to 
+    # if there is the string "Vers" or "vers", only keep everything up to
     # the "," before that pattern
     dplyr::mutate(
-      districtCadastre_relation_cadastre =
-        sub("^(.*),\\s*[^,]*[Vv]ers.*", "\\1", districtCadastre_relation_cadastre)
+      districtCadastre_relation_cadastre = sub(
+        "^(.*),\\s*[^,]*[Vv]ers.*",
+        "\\1",
+        districtCadastre_relation_cadastre
+      )
     ) |>
-    # if there is the string "Vers" or "vers", only keep everything up to 
+    # if there is the string "Vers" or "vers", only keep everything up to
     #the "/" before that pattern
     dplyr::mutate(
-      districtCadastre_relation_cadastre =
-        sub("^(.*?)/.*[Vv]ers.*", "\\1", districtCadastre_relation_cadastre)
+      districtCadastre_relation_cadastre = sub(
+        "^(.*?)/.*[Vv]ers.*",
+        "\\1",
+        districtCadastre_relation_cadastre
+      )
     ) |>
     # remove all brackets and their content
     dplyr::mutate(
-      districtCadastre_relation_cadastre =
-        gsub("\\s?\\([^)]*\\)", "", districtCadastre_relation_cadastre)
+      districtCadastre_relation_cadastre = gsub(
+        "\\s?\\([^)]*\\)",
+        "",
+        districtCadastre_relation_cadastre
+      )
     ) |>
     # remove all kat.nr
     dplyr::mutate(
-      districtCadastre_relation_cadastre =
-        sub("(?i)(kat).*?\\s", "", districtCadastre_relation_cadastre)
+      districtCadastre_relation_cadastre = sub(
+        "(?i)(kat).*?\\s",
+        "",
+        districtCadastre_relation_cadastre
+      )
     ) |>
     # replace all "+" with ","
     dplyr::mutate(
-      districtCadastre_relation_cadastre =
-        gsub("\\+", ",", districtCadastre_relation_cadastre)
+      districtCadastre_relation_cadastre = gsub(
+        "\\+",
+        ",",
+        districtCadastre_relation_cadastre
+      )
     ) |>
     # replacing all "&" with ","
     dplyr::mutate(
-      districtCadastre_relation_cadastre =
-        gsub("\\&", ",", districtCadastre_relation_cadastre)
+      districtCadastre_relation_cadastre = gsub(
+        "\\&",
+        ",",
+        districtCadastre_relation_cadastre
+      )
     ) |>
     # remove all "gebäude"-string and everything after until there is another comma
     dplyr::mutate(
-      districtCadastre_relation_cadastre =
-        gsub("\\s*[Gg]eb\u00e4ude\\w*", "", districtCadastre_relation_cadastre)
+      districtCadastre_relation_cadastre = gsub(
+        "\\s*[Gg]eb\u00e4ude\\w*",
+        "",
+        districtCadastre_relation_cadastre
+      )
     ) |>
     # replace all "/" with ","
     dplyr::mutate(
-      districtCadastre_relation_cadastre =
-        gsub("\\/", ",", districtCadastre_relation_cadastre)
+      districtCadastre_relation_cadastre = gsub(
+        "\\/",
+        ",",
+        districtCadastre_relation_cadastre
+      )
     ) |>
     # remove all substrings in that only consist of letters (this does not
     # include the potential commas between them)
     dplyr::mutate(
-      districtCadastre_relation_cadastre =
-        gsub("\\b[A-Za-z]+\\b", "", districtCadastre_relation_cadastre)
+      districtCadastre_relation_cadastre = gsub(
+        "\\b[A-Za-z]+\\b",
+        "",
+        districtCadastre_relation_cadastre
+      )
     ) |>
     # Remove all whitespaces
     dplyr::mutate(
-      districtCadastre_relation_cadastre =
-        gsub(" ", "", districtCadastre_relation_cadastre, fixed = TRUE)
+      districtCadastre_relation_cadastre = gsub(
+        " ",
+        "",
+        districtCadastre_relation_cadastre,
+        fixed = TRUE
+      )
     ) |>
     # Remove all potential multiple commas in a row
     dplyr::mutate(
-      districtCadastre_relation_cadastre =
-        gsub(",,+", "", districtCadastre_relation_cadastre)
+      districtCadastre_relation_cadastre = gsub(
+        ",,+",
+        "",
+        districtCadastre_relation_cadastre
+      )
     ) |>
     # Remove all potential commas at the very beginning or end of a string
     dplyr::mutate(
-      districtCadastre_relation_cadastre =
-        gsub("^,|,$", "", districtCadastre_relation_cadastre)
+      districtCadastre_relation_cadastre = gsub(
+        "^,|,$",
+        "",
+        districtCadastre_relation_cadastre
+      )
     )
 
   return(df)
 }
-
 
 
 #' Get legal entity info for companies
@@ -217,7 +257,7 @@ clean_cadaster <- function(df_bp) {
 #' @export
 #'
 get_legal_entity_info <- function(df_bp) {
-  legal_entity_info <- read.csv(
+  legal_entity_info <- read.csv2(
     "https://api.i14y.admin.ch/api/public/v1/concepts/08dad8ff-f18a-560b-bfa6-20767f2afb17/codelist-entries/exports/csv"
   ) |>
     dplyr::rename_with(tolower) |>
@@ -225,30 +265,35 @@ get_legal_entity_info <- function(df_bp) {
 
   if ("buildingContractor_company_legalForm" %in% names(df_bp)) {
     df_bp <- df_bp |>
-      dplyr::left_join(legal_entity_info,
-                       by = c("buildingContractor_company_legalForm" = "code")) |>
+      dplyr::left_join(
+        legal_entity_info,
+        by = c("buildingContractor_company_legalForm" = "code")
+      ) |>
       dplyr::rename(buildingContractor_company_legalForm_de = name_de)
   }
 
   if ("projectFramer_company_legalForm" %in% names(df_bp)) {
     df_bp <- df_bp |>
-      dplyr::left_join(legal_entity_info,
-                       by = c("projectFramer_company_legalForm" = "code")) |>
+      dplyr::left_join(
+        legal_entity_info,
+        by = c("projectFramer_company_legalForm" = "code")
+      ) |>
       dplyr::rename(projectFramer_company_legalForm_de = name_de)
   }
 
   if ("delegation_buildingContractor_company_legalForm" %in% names(df_bp)) {
     df_bp <- df_bp |>
-      dplyr::left_join(legal_entity_info,
-                       by = c("delegation_buildingContractor_company_legalForm" = "code")) |>
-      dplyr::rename(delegation_buildingContractor_company_legalForm_de = name_de)
+      dplyr::left_join(
+        legal_entity_info,
+        by = c("delegation_buildingContractor_company_legalForm" = "code")
+      ) |>
+      dplyr::rename(
+        delegation_buildingContractor_company_legalForm_de = name_de
+      )
   }
 
   return(df_bp)
 }
-
-
-
 
 
 #' Prepare Address Data for Mapping
@@ -291,13 +336,18 @@ create_map_input <- function(df_bp_geo) {
       expirationDate,
       projectDescription
     ) |>
-    dplyr::summarise(address = paste0(
-      projectLocation_address_street, " ",
-      projectLocation_address_houseNumber, ", ",
-      projectLocation_address_swissZipCode, " ",
-      projectLocation_address_town,
-      collapse = "; "
-    )) |>
+    dplyr::summarise(
+      address = paste0(
+        projectLocation_address_street,
+        " ",
+        projectLocation_address_houseNumber,
+        ", ",
+        projectLocation_address_swissZipCode,
+        " ",
+        projectLocation_address_town,
+        collapse = "; "
+      )
+    ) |>
     dplyr::ungroup() |>
     dplyr::mutate(
       # replacing NA with ""
